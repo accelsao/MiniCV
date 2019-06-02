@@ -8,16 +8,17 @@ namespace cv {
 	/*
 		Container which stores the registered codecs to be used by MiniCV
 	*/
-	struct  {
+	struct ImageCodecInitializer {
 		ImageCodecInitializer() {
 			/// BMP Support
-			decoders.push_back(std::make_shared<BmpDecoder>());
-			encoders.push_back(makePtr<BmpEncoder>());
+			/*decoders.push_back(makePtr<BmpDecoder>());
+			encoders.push_back(makePtr<BmpEncoder>());*/
 
-			#ifdef HAVE_JPEG
-				decoders.push_back(makePtr<JpegDecoder>());
-				encoders.push_back(makePtr<JpegEncoder>());
-			#endif
+#define HAVE_JPEG
+#ifdef HAVE_JPEG
+			decoders.push_back(makePtr<JpegDecoder>());
+			//encoders.push_back(makePtr<JpegEncoder>());
+#endif
 		}
 		std::vector<ImageDecoder> decoders;
 		std::vector<ImageEncoder> encoders;
@@ -39,16 +40,12 @@ namespace cv {
 
 		return true;
 	}
-
-	Mat imread(const string& filename, int flags) {
-		Mat img;
-		imread_(filename, flags, img);
-		cout << "Load Image\n";
-		return img;
-	}
-
-	void Mat::func() {
-		this->s = "minicv";
-	};
-	
+//
+//	Mat imread(const string& filename, int flags) {
+//		Mat img;
+//		imread_(filename, flags, img);
+//		cout << "Load Image\n";
+//		return img;
+//	}
+//
 }
